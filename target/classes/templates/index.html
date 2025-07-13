@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Expensiph</title>
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-body-secondary">
+      <div class="container-fluid">
+        <a class="navbar-brand mb-0 h1" href="#"
+          >Expensiph <i class="bi bi-funnel-fill"></i
+        ></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Reporting</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Logout</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input
+              class="form-control me-2"
+              type="search"
+              placeholder="Search for expenses..."
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-success" type="submit">
+              Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="mt-5 mb-5 d-flex justify-content-between align-items-center">
+        <h1>Current Expenses</h1>
+        <a href="/create">
+            <button type="button" class="btn btn-lg btn-success">Add New</button>
+        </a>
+      </div>
+      <div th:each="expense : ${expenses}" class="mt-4">
+        <div
+          class="alert alert-success d-flex justify-content-between align-items-center flex-wrap"
+        >
+          <div>
+            <h4>
+              <span class="fw-bold me-3" th:text="${expense.title}"></span>
+            </h4>
+            <span class="me-3"
+              >Total: $<span
+                th:text="${#numbers.formatDecimal(expense.total, 1, 2)}"
+              ></span
+            ></span>
+            <span class="me-3"
+              >Purchase Date: <span th:text="${expense.purchaseDate}"></span
+            ></span>
+          </div>
+          <div>
+            <a th:href="@{/expense/{id}(id=${expense.id})}"><button type="button" class="btn btn-success">Details</button></a>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              th:attr="data-id=${expense.id}"
+              onclick="deleteExpense(this)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script th:src="@{/js/scripts.js}"></script>
+  </body>
+</html>
