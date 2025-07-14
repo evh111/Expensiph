@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Expensiph</title>
+    <title>Expensiph - Home</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <link
@@ -26,9 +26,9 @@
   <body>
     <nav class="navbar navbar-expand-lg bg-body-secondary">
       <div class="container-fluid">
-        <a class="navbar-brand mb-0 h1" href="#"
-          >Expensiph <i class="bi bi-funnel-fill"></i
-        ></a>
+        <a th:href="@{/}" class="navbar-brand mb-0 h1">
+          Expensiph <i class="bi bi-funnel-fill"></i>
+        </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -43,13 +43,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a th:href="@{/}" class="nav-link active" aria-current="page">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Reporting</a>
+              <a href="#" class="nav-link">Reporting</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
+              <form th:action="@{/logout}" method="post">
+                <button type="submit" class="nav-link">Logout</button>
+              </form>
             </li>
           </ul>
           <form class="d-flex" role="search">
