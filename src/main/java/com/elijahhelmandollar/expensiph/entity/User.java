@@ -1,5 +1,6 @@
 package com.elijahhelmandollar.expensiph.entity;
 
+import java.util.List;
 import java.time.LocalDate;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,6 +27,9 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_date")
     private LocalDate updatedDate;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Expense> expenses;
 
     // Initializing constructor.
     public User() {}
@@ -88,6 +92,18 @@ public class User {
     public void setUpdatedDate(LocalDate updatedDate) {
 
         this.updatedDate = updatedDate;
+    }
+
+    public List<Expense> getExpenses() {
+
+        return this.expenses;
+
+    }
+
+    public void setExpenses(List<Expense> expenses) {
+
+        this.expenses = expenses;
+
     }
 
 }

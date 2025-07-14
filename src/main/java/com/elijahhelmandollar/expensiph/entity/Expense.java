@@ -33,6 +33,10 @@ public class Expense {
     @Column(name = "updated_date")
     private LocalDate updatedDate;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     // Initializing constructor.
     public Expense() {}
 
@@ -118,6 +122,18 @@ public class Expense {
     public void setUpdatedDate(LocalDate updatedDate) {
 
         this.updatedDate = updatedDate;
+
+    }
+
+    public User getUser() {
+
+        return this.user;
+
+    }
+
+    public void setUser(User user) {
+
+        this.user = user;
 
     }
 
