@@ -46,6 +46,7 @@
               <a th:href="@{/}" class="nav-link active" aria-current="page">Home</a>
             </li>
             <li class="nav-item">
+              <!-- TODO: Make the reporting tab active after copying this page. -->
               <a href="#" class="nav-link">Reporting</a>
             </li>
             <li class="nav-item">
@@ -54,12 +55,14 @@
               </form>
             </li>
           </ul>
-          <form class="d-flex" role="search">
+          <form th:action="@{/search}" method="get" class="d-flex" role="search">
             <input
               class="form-control me-2"
-              type="search"
+              name="keyword"
+              type="text"
               placeholder="Search for expenses..."
               aria-label="Search"
+              th:value="${keyword}"
             />
             <button class="btn btn-outline-success" type="submit">
               Search
@@ -74,6 +77,11 @@
         <a href="/create">
             <button type="button" class="btn btn-lg btn-success">Add New</button>
         </a>
+      </div>
+      <div th:if="${notfound}" class="d-flex justify-content-center my-5 mt-5">
+        <h2 class="mt-5">
+          <span th:text="${notfound}"></span>
+        </h2>
       </div>
       <div th:each="expense : ${expenses}" class="mt-4">
         <div

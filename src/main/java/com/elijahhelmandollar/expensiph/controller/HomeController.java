@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import com.elijahhelmandollar.expensiph.entity.Expense;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import com.elijahhelmandollar.expensiph.dao.ExpenseRepository;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -32,6 +33,30 @@ public class HomeController {
 
         // Pass the list of expenses to the front end.
         model.addAttribute("expenses", expenses);
+
+        return "index";
+
+    }
+
+    @GetMapping("/search")
+    public String searchExpenses(@RequestParam("keyword") String keyword, Model model) {
+
+        // Query for the current user.
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        List<Expense> expenses = expenseRepository.searchExpenses(username, keyword);
+
+        if (expenses.isEmpty()) {
+
+            model.addAttribute("notfound", "No results were found.");
+
+        } else {
+
+            model.addAttribute("expenses", expenses);
+            model.addAttribute("keyword", keyword);
+
+        }
 
         return "index";
 
