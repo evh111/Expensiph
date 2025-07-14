@@ -35,9 +35,26 @@ public class UserController {
 
     // Process the user registration form.
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute UserRegistrationDto userDto, Model model) {
+    public String registerUser(@ModelAttribute UserRegistrationDto userRegistrationDto, Model model) {
 
-        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+        // Enforce username length maximum.
+        if (userRegistrationDto.getUsername().length() > 25) {
+
+            model.addAttribute("error", "The username must be between 1 and 25 characters.");
+            return "registration";
+
+        }
+
+        // Enforce password length minimum and maximum.
+        if (userRegistrationDto.getPassword().length() < 8 ||  userRegistrationDto.getPassword().length() > 64) {
+
+            model.addAttribute("error", "The password must be between 8 and 64 characters.");
+            return "registration";
+
+        }
+
+        // Verify that both password fields match.
+        if (!userRegistrationDto.getPassword().equals(userRegistrationDto.getConfirmPassword())) {
 
             model.addAttribute("error", "Please ensure that both password fields match.");
             return "registration";
@@ -45,18 +62,17 @@ public class UserController {
         }
 
         // Verify that the user does not already exist.
-        if (userRepository.findByUsername(userDto.getUsername()) != null) {
+        if (userRepository.findByUsername(userRegistrationDto.getUsername()) != null) {
 
-            // TODO: Does this display on screen manually or automatically?
-            model.addAttribute("error", "The username provide is already taken.");
+            model.addAttribute("error", "The username you've provided is already in use.");
             return "registration";
 
         }
 
         // Create the "User" and assign its fields.
         User user = new User();
-        user.setUsername(userDto.getUsername());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setUsername(userRegistrationDto.getUsername().trim());
+        user.setPassword(passwordEncoder.encode(userRegistrationDto.getPassword().trim()));
 
         // Save the user.
         userRepository.save(user);

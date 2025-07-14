@@ -17,8 +17,8 @@
     </div>
 </nav>
 <div class="container mt-5">
-    <div id="errorAlert" class="alert alert-danger alert-dismissible fade show mt-4 mb-4" role="alert" style="display: none;">
-        Please ensure that both password fields match.
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-4 mb-4" role="alert">
+        <span th:text="${error}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <h1>Create Account</h1>
@@ -31,8 +31,7 @@
                     name="username"
                     class="form-control"
                     placeholder="Enter username"
-                    required
-                    th:value="${user.username}" />
+                    required />
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
@@ -58,6 +57,5 @@
         <a th:href="@{/login}" class="btn btn-secondary ms-2">Cancel</a>
     </form>
 </div>
-<script th:src="@{/js/registration.js}"></script>
 </body>
 </html>
