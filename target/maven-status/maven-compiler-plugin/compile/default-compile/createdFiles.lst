@@ -2,5 +2,14 @@ com/elijahhelmandollar/expensiph/ExpensiphApplication.class
 com/elijahhelmandollar/expensiph/controller/ExpenseController.class
 com/elijahhelmandollar/expensiph/dao/ExpenseRepository.class
 com/elijahhelmandollar/expensiph/controller/HomeController.class
-com/elijahhelmandollar/expensiph/entity/Expense.class
+com/elijahhelmandollar/expensiph/controller/ExpenseFormController.class
+com/elijahhelmandollar/expensiph/config/SecurityConfig.class
+com/elijahhelmandollar/expensiph/dto/UserRegistrationDto.class
 com/elijahhelmandollar/expensiph/bootstrap/BootStrapData.class
+com/elijahhelmandollar/expensiph/entity/User.class
+com/elijahhelmandollar/expensiph/service/ReportingService.class
+com/elijahhelmandollar/expensiph/controller/ReportingController.class
+com/elijahhelmandollar/expensiph/service/CustomUserDetailsService.class
+com/elijahhelmandollar/expensiph/controller/UserController.class
+com/elijahhelmandollar/expensiph/entity/Expense.class
+com/elijahhelmandollar/expensiph/dao/UserRepository.class
