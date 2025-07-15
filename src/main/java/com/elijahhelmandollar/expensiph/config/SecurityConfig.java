@@ -31,12 +31,15 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                     .loginPage("/login")
-                    .defaultSuccessUrl("/")
+                    .defaultSuccessUrl("/", true)
                     .permitAll()
             )
             .logout(logout -> logout
                     .logoutSuccessUrl("/login")
                     .permitAll()
+            )
+            .csrf(csrf -> csrf
+                    .ignoringRequestMatchers("/api/expenses/delete/**")
             )
             .userDetailsService(userDetailsService);
 

@@ -53,7 +53,7 @@ public class BootStrapData implements CommandLineRunner {
                 Expense expense = new Expense();
 
                 expense.setTitle("Expense " + i);
-                expense.setDescription("Description " + i);
+                expense.setDescription("This is a test description " + i + ".");
                 expense.setTotal(i);
                 expense.setPurchaseDate(LocalDate.now().plusDays(365));
                 expense.setUser(user);

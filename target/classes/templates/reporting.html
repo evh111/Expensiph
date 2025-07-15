@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Expensiph - Home</title>
+    <title>Expensiph - Reporting</title>
     <link rel="icon" href="./favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <link
@@ -43,12 +43,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a th:href="@{/}" class="nav-link active" aria-current="page"
-                >Home</a
-              >
+              <a th:href="@{/}" class="nav-link" aria-current="page">Home</a>
             </li>
             <li class="nav-item">
-              <a th:href="@{/reporting}" class="nav-link">Reporting</a>
+              <a th:href="@{/reporting}" class="nav-link active">Reporting</a>
             </li>
             <li class="nav-item">
               <form th:action="@{/logout}" method="post">
@@ -56,72 +54,44 @@
               </form>
             </li>
           </ul>
-          <form
-            th:action="@{/search}"
-            method="get"
-            class="d-flex"
-            role="search"
-          >
-            <input
-              class="form-control me-2"
-              name="keyword"
-              type="text"
-              placeholder="Search for expenses..."
-              aria-label="Search"
-              th:value="${keyword}"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
         </div>
       </div>
     </nav>
     <div class="container">
       <div class="mt-5 mb-5 d-flex justify-content-between align-items-center">
-        <h1>Current Expenses</h1>
-        <a href="/create">
-          <button type="button" class="btn btn-lg btn-success">Add New</button>
-        </a>
+        <h1>
+          Expenses Total: $<span
+            th:text="${#numbers.formatDecimal(totalExpenses, 1, 2)}"
+          ></span>
+        </h1>
       </div>
       <div th:if="${notfound}" class="d-flex justify-content-center my-5 mt-5">
         <h2 class="mt-5">
           <span th:text="${notfound}"></span>
         </h2>
       </div>
-      <div th:each="expense : ${expenses}" class="mt-4">
-        <div
-          class="alert alert-success d-flex justify-content-between align-items-center flex-wrap"
-        >
-          <div>
-            <h4>
-              <span class="fw-bold me-3" th:text="${expense.title}"></span>
-            </h4>
-            <span class="me-3"
-              >Total: $<span
-                th:text="${#numbers.formatDecimal(expense.total, 1, 2)}"
-              ></span
-            ></span>
-            <span class="me-3"
-              >Description: <span th:text="${expense.description}"></span
-            ></span>
-          </div>
-          <div>
-            <a th:href="@{/expense/{id}(id=${expense.id})}"
-              ><button type="button" class="btn btn-success">Details</button></a
-            >
-            <button
-              type="button"
-              class="btn btn-secondary"
-              th:attr="data-id=${expense.id}"
-              onclick="deleteExpense(this)"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
+      <div th:if="${monthlyExpenses}">
+        <table class="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Title</th>
+              <th scope="col">Total</th>
+              <th scope="col">Description</th>
+              <th scope="col">Purchase Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="expense : ${monthlyExpenses}">
+              <td th:text="${expense[0]}"></td>
+              <td
+                th:text="'$' + ${#numbers.formatDecimal(expense[1], 1, 2)}"
+              ></td>
+              <td th:text="${expense[2]}"></td>
+              <td th:text="${expense[3]}"></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
-    <script th:src="@{/js/scripts.js}"></script>
   </body>
 </html>
